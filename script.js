@@ -1,5 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    // --- Preloader Logic ---
+    const preloader = document.getElementById("preloader");
+    window.addEventListener("load", () => {
+        preloader.classList.add("preloader-hidden");
+    });
+    // --- END PRELOADER ---
+
+    // --- ALL CUSTOM CURSOR LOGIC REMOVED ---
+
+    // --- Typing Animation Logic ---
+    if (document.getElementById("typed-subtitle")) {
+        new Typed("#typed-subtitle", {
+            strings: ["Budding Engineer", "Front-end Web Developer"],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 2000,
+            showCursor: true,
+            cursorChar: "|",
+        });
+    }
+    // --- END TYPING ---
+
     // --- Hamburger Menu ---
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".nav-menu");
@@ -17,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // --- Active Nav Link on Scroll ---
+    // --- Active Nav Link on Scroll (Simplified) ---
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav-link");
 
@@ -25,8 +48,11 @@ document.addEventListener("DOMContentLoaded", function() {
         let scrollY = window.pageYOffset;
         let currentSection = "";
 
+        // --- HEADER SCROLL LOGIC REMOVED ---
+        
+        // Active link logic
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 80; // 70px nav height + 10px buffer
+            const sectionTop = section.offsetTop - 80;
             const sectionHeight = section.offsetHeight;
             
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
@@ -34,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        // Special case for home (top of page)
         if (scrollY < sections[0].offsetTop - 80) {
             currentSection = "home";
         }
@@ -50,46 +75,35 @@ document.addEventListener("DOMContentLoaded", function() {
     window.addEventListener("scroll", onScroll);
     onScroll(); // Run on page load
 
-    // --- Fade-in Section on Scroll ---
-    // Selector now looks for our new classes
-    const fadeElements = document.querySelectorAll(".fade-in-left, .fade-in-right");
+    // --- NEW: Heavy Scroll-Reveal Animation Logic ---
+    const revealElements = document.querySelectorAll(".scroll-reveal");
 
-    const observerOptions = {
-        root: null, // relative to the viewport
+    const revealOptions = {
+        root: null,
         rootMargin: "0px",
-        threshold: 0.1 // 10% of the element must be visible
+        threshold: 0.1 // Animate when 10% of the item is visible
     };
 
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
+    const revealCallback = (entries, observer) => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                // Add a staggered delay for card items
+                const delay = (entry.target.classList.contains('skill-card') || entry.target.classList.contains('project-card')) 
+                              ? index * 100 // Stagger by 100ms
+                              : 0; // No delay for sections
+
+                entry.target.style.transitionDelay = `${delay}ms`;
                 entry.target.classList.add("visible");
-                observer.unobserve(entry.target); // Stop observing once it's visible
+                observer.unobserve(entry.target); // Stop observing once visible
             }
         });
     };
 
-    const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
 
-    fadeElements.forEach(el => {
-        scrollObserver.observe(el);
+    revealElements.forEach(el => {
+        revealObserver.observe(el);
     });
+    // --- END NEW ---
 
-    // --- Contact Form (Simple Validation Example) ---
-    const contactForm = document.getElementById("contact-form");
-    contactForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
-
-        if (name && email && message) {
-            alert("Thank you for your message, " + name + "!");
-            // In a real app, you'd send this data to a server.
-            contactForm.reset();
-        } else {
-            alert("Please fill out all fields.");
-        }
-    });
 });
