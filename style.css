@@ -1,22 +1,22 @@
-/* --- CSS Variables (New Pink & Professional Theme) --- */
+/* --- CSS Variables (Pink & Professional Theme) --- */
 :root {
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     
-    /* New "Girly" & Professional Palette */
-    --color-primary: #D94680;           /* A strong, stylish pink */
-    --color-primary-dark: #B32E62;       /* Darker pink for hovers */
-    --color-secondary-accent: #FADADD;   /* Very light pink for tags */
-    --color-text: #1a1a1a;               /* Near-black for main text */
-    --color-text-secondary: #5c5c5c;     /* Medium-grey for paragraphs */
+    /* Pink Palette */
+    --color-primary: #D94680;
+    --color-primary-dark: #B32E62;
+    --color-secondary-accent: #FADADD; /* Lightest pink */
+    --color-text: #1a1a1a;
+    --color-text-secondary: #5c5c5c;
     
-    --color-bg-body: #ffffff;            /* Clean white background */
-    --color-bg-section: #fff8fa;         /* A very subtle pink for sections */
-    --color-border: #f0e6ea;             /* A light, warm grey/pink border */
+    --color-bg-body: #ffffff;
+    --color-bg-section: #fff8fa;     /* Very subtle pink */
+    --color-border: #f0e6ea;
     
-    /* Soft pink shadow for the "wow" effect */
+    /* Shadows */
     --shadow-color: rgba(217, 70, 128, 0.15);
     --shadow-color-hover: rgba(217, 70, 128, 0.25);
-    --shadow-faint: rgba(0, 0, 0, 0.05); /* Faint black shadow for cards */
+    --shadow-faint: rgba(0, 0, 0, 0.05);
 }
 
 /* --- Global Reset & Base Styles --- */
@@ -36,16 +36,72 @@ html {
 body {
     font-family: var(--font-primary);
     line-height: 1.6;
-    background: var(--color-bg-body); /* Clean white background */
     color: var(--color-text);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+
+    background: linear-gradient(135deg, var(--color-secondary-accent), #ffffff, var(--color-secondary-accent));
+    background-size: 400% 400%;
+    animation: gradient-flow 15s ease infinite;
+    position: relative;
+    /* --- CURSOR IS NOW NORMAL --- */
+    cursor: auto;
+}
+
+/* --- Preloader Styles (Kept) --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg-section);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    opacity: 1;
+    visibility: visible;
+}
+
+#preloader.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--color-secondary-accent);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: preloader-spin 1s linear infinite;
+}
+
+@keyframes preloader-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* --- END Preloader Styles --- */
+
+/* --- ALL CUSTOM CURSOR STYLES REMOVED --- */
+
+@keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+a, button {
+    cursor: pointer; /* Use standard pointer */
 }
 
 a {
@@ -58,12 +114,31 @@ a:hover {
     color: var(--color-primary-dark);
 }
 
+/* --- MODIFIED Section Styles --- */
 section {
     padding: 6rem 10%;
     max-width: 1400px;
-    margin: 0 auto;
+    margin: 0 auto 3rem auto; /* Added margin-bottom */
     position: relative;
+    z-index: 2;
+    
+    /* --- NEW: Section border and glow --- */
+    background-color: var(--color-bg-section);
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    box-shadow: 0 0 30px -5px var(--shadow-color); /* The pink glow */
 }
+
+/* Hero section is full-width, no border */
+#home {
+    padding: 0; /* Remove padding */
+    margin-bottom: 3rem;
+    background-color: transparent; 
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 
 h1, h2, h3 {
     line-height: 1.2;
@@ -80,7 +155,6 @@ h2 {
     color: var(--color-text);
 }
 
-/* Underline effect for section titles (now pink) */
 h2::after {
     content: '';
     display: block;
@@ -96,30 +170,42 @@ p {
     color: var(--color-text-secondary);
 }
 
-/* --- Buttons (with new pink hover glow) --- */
+/* --- Buttons --- */
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 8px;
-    cursor: pointer;
     text-align: center;
     transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 15px 5px var(--shadow-color);
+    }
+    50% {
+        box-shadow: 0 0 25px 10px var(--shadow-color-hover);
+    }
+    100% {
+        box-shadow: 0 0 15px 5px var(--shadow-color);
+    }
+}
+
 .btn-primary {
     background-color: var(--color-primary);
     color: #ffffff;
+    animation: pulse-glow 2.5s infinite ease-in-out;
 }
 
 .btn-primary:hover {
     background-color: var(--color-primary-dark);
     color: #ffffff;
     transform: translateY(-3px);
-    /* Pink Glow Effect */
     box-shadow: 0 0 15px 5px var(--shadow-color);
+    animation-play-state: paused;
 }
 
 .btn-secondary {
@@ -132,30 +218,46 @@ p {
     background-color: var(--color-primary);
     color: #ffffff;
     transform: translateY(-3px);
-    /* Pink Glow Effect */
     box-shadow: 0 0 15px 5px var(--shadow-color);
 }
 
-/* --- Navigation Bar (Clean & Sticky) --- */
+/* --- NEW: Floating "macOS" Glass Navbar --- */
 header {
-    background-color: var(--color-bg-body); /* White background */
-    border-bottom: 1px solid var(--color-border); /* Subtle border */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    position: sticky;
+    /* This is the container that holds the floating bar */
+    position: fixed; /* Floats on top */
     top: 0;
-    z-index: 1000;
+    left: 0;
     width: 100%;
+    z-index: 1000;
+    padding: 1rem; /* Spacing from top/sides */
+    pointer-events: none; /* Click "through" the header */
 }
 
 .navbar {
+    /* This is the actual glass bar */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
-    padding: 0 10%;
-    max-width: 1400px;
-    margin: 0 auto;
+    
+    max-width: 600px; /* Set a max-width for the floating effect */
+    margin: 0 auto; /* Center it */
+    padding: 0.75rem 2rem; /* Vertical and horizontal padding */
+    height: auto; /* Remove fixed height */
+    
+    pointer-events: auto; /* The bar itself is clickable */
+
+    /* The Liquid Glass Effect */
+    background: rgba(255, 248, 250, 0.6); /* Semi-transparent pink */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px; /* Rounded corners */
+    
+    /* --- MODIFIED: Black Border --- */
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Subtle black border */
+    
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
+/* --- END NEW --- */
 
 .nav-brand a {
     font-size: 1.5rem;
@@ -169,7 +271,7 @@ header {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem; /* Slightly reduced gap */
 }
 
 .nav-link {
@@ -183,23 +285,25 @@ header {
 .nav-link::after {
     content: '';
     display: block;
-    width: 0;
+    width: 100%;
     height: 2px;
     background: var(--color-primary);
-    transition: width 0.3s ease;
+    transition: transform 0.3s ease;
     position: absolute;
     bottom: 0;
     left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom left;
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
-    width: 100%;
+    transform: scaleX(1);
 }
 
 .nav-link.active,
 .nav-link:hover {
-    color: var(--color-primary); /* Changed from black to pink */
+    color: var(--color-primary);
 }
 
 .hamburger {
@@ -212,19 +316,49 @@ header {
     width: 25px;
     height: 3px;
     margin: 5px auto;
-    background-color: var(--color-text); /* Black bars */
+    background-color: var(--color-text);
     transition: all 0.3s ease-in-out;
 }
 
-/* --- Hero Section (Animated Pink Title) --- */
+/* --- Hero Section --- */
 .hero {
-    min-height: calc(100vh - 70px);
+    min-height: 100vh; /* Full vh */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: transparent;
+    position: relative;
+    
+    /* !! ACTION REQUIRED !!
+      Replace 'path/to/your-hero-image.jpg' with your image URL.
+    */
+    background-image: linear-gradient(rgba(255, 248, 250, 0.7), rgba(255, 248, 250, 0.7)), 
+                      url('https://img.freepik.com/free-photo/digital-art-magical-fairy_23-2151589506.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
+
+/* --- NEW: Hero Content Animation --- */
+@keyframes hero-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    /* Apply the animation */
+    animation: hero-slide-in 1s ease-out 0.5s;
+    animation-fill-mode: backwards; /* Starts in 'from' state */
+}
+/* --- END NEW --- */
 
 @keyframes text-gradient-flow {
     to {
@@ -236,7 +370,6 @@ header {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    /* Animated Gradient Text (new pink colors) */
     background: linear-gradient(90deg, var(--color-primary), #ff8fab, var(--color-primary));
     background-size: 200% auto;
     color: transparent;
@@ -250,6 +383,17 @@ header {
     font-weight: 300;
     color: var(--color-text-secondary);
     margin-bottom: 2rem;
+    min-height: 2.4rem; 
+}
+
+.hero-subtitle .typed-cursor {
+    color: var(--color-primary);
+    font-weight: 300;
+    animation: typed-blink 0.7s infinite;
+}
+
+@keyframes typed-blink {
+    50% { opacity: 0; }
 }
 
 .hero-buttons {
@@ -260,8 +404,7 @@ header {
 
 /* --- About Section --- */
 #about {
-    background-color: var(--color-bg-section); /* Subtle pink bg */
-    border-radius: 16px;
+    /* Styles are now handled by the 'section' tag */
 }
 .about-content {
     display: grid;
@@ -272,7 +415,7 @@ header {
 
 .about-image img {
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .about-text p {
@@ -280,9 +423,13 @@ header {
     color: var(--color-text-secondary);
 }
 
-/* --- Skills Section (Clean Cards) --- */
+/* --- Skills Section --- */
 #skills {
+    /* Styles are now handled by the 'section' tag */
+    /* Make bg transparent to show body gradient through cards */
     background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .skills-grid {
@@ -292,18 +439,18 @@ header {
     text-align: center;
 }
 
-/* New card style */
+/* Glassmorphism Skill Card (Kept) */
 .skill-card {
-    background: #ffffff; /* White card */
-    border: 1px solid var(--color-border); /* Light border */
-    border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-faint); /* Faint black shadow */
-    
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
     padding: 1.5rem 1rem;
     transition: all 0.3s ease;
 }
@@ -313,6 +460,7 @@ header {
     width: 50px;
     object-fit: contain;
     margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
 }
 
 .skill-card p {
@@ -323,41 +471,50 @@ header {
     transition: color 0.3s ease;
 }
 
-/* Hover: Pink glow and pink text */
 .skill-card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px var(--shadow-color);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px var(--shadow-color);
+    background: rgba(255, 255, 255, 0.4);
+    border-color: var(--color-border);
 }
 
-.skill-card:hover p {
-    color: var(--color-primary);
+/* --- Projects Section --- */
+#projects {
+    /* Make bg transparent to show body gradient through cards */
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
 }
 
-/* --- Projects Section (Clean Cards with 3D Hover) --- */
 .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
 }
 
+/* --- NEW: Liquid Glass Project Card --- */
 .project-card {
-    background: var(--color-bg-body); /* White card */
-    border: 1px solid var(--color-border);
-    box-shadow: 0 4px 12px var(--shadow-faint); /* Faint black shadow */
+    /* The Glass Effect */
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .project-card:hover {
-    /* Keep the 3D Tilt Effect */
-    transform: perspective(1000px) translateY(-10px) rotateY(5deg) scale(1.03);
-    /* Add pink glow on hover */
+    /* Removed 3D tilt, replaced with simple glow */
+    transform: translateY(-10px);
     box-shadow: 0 10px 40px var(--shadow-color-hover);
+    border-color: var(--color-border);
 }
+/* --- END NEW --- */
 
 .project-image {
     width: 100%;
@@ -393,10 +550,9 @@ header {
     gap: 0.5rem;
 }
 
-/* New tag style */
 .tag {
-    background-color: var(--color-secondary-accent); /* Light pink */
-    color: var(--color-primary-dark); /* Dark pink text */
+    background-color: var(--color-secondary-accent);
+    color: var(--color-primary-dark);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
@@ -409,45 +565,23 @@ header {
 }
 
 .project-links a {
-    color: var(--color-text-secondary); /* Grey text */
+    color: var(--color-text-secondary);
     font-weight: 500;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 .project-links a:hover {
-    color: var(--color-primary); /* Pink on hover */
+    color: var(--color-primary);
 }
 
 .project-links i {
     font-size: 1.1rem;
 }
 
-/* --- Hobby Section --- */
-#hobby {
-    background-color: transparent;
-    text-align: center;
-}
-
-.hobby-content {
-    max-width: 700px; 
-    margin: 0 auto;
-}
-
-.hobby-description {
-    font-size: 1.1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 2rem;
-}
-
-.hobby-content .btn i {
-    margin-right: 0.5rem;
-}
-
-/* --- Contact Section (Light Form) --- */
+/* --- Contact Section --- */
 #contact {
-    background-color: var(--color-bg-section); /* Subtle pink bg */
-    border-radius: 16px;
+    /* Styles are now handled by the 'section' tag */
 }
 
 .contact-subtitle {
@@ -474,14 +608,13 @@ header {
     color: var(--color-text);
 }
 
-/* New light input style */
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
     font-size: 1rem;
     font-family: var(--font-primary);
-    background-color: var(--color-bg-body); /* White input */
+    background-color: var(--color-bg-body); 
     border: 1px solid var(--color-border);
     color: var(--color-text);
     border-radius: 8px;
@@ -493,7 +626,6 @@ header {
     color: var(--color-text-secondary);
 }
 
-/* Pink focus glow */
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
@@ -504,15 +636,23 @@ header {
 .contact-form .btn {
     width: 100%;
     font-size: 1.1rem;
+    animation: none;
 }
 
 /* --- Footer --- */
 footer {
     text-align: center;
     padding: 3rem 5%;
-    background-color: var(--color-bg-section); /* Light pink bg */
+    background-color: var(--color-bg-section);
     color: var(--color-text-secondary);
     margin-top: 4rem;
+    position: relative;
+    z-index: 2;
+    /* Match section style */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 30px -5px var(--shadow-color);
 }
 
 .social-links {
@@ -531,6 +671,7 @@ footer {
 .social-links a:hover {
     color: var(--color-primary);
     transform: translateY(-3px);
+    text-shadow: 0 0 10px var(--color-primary);
 }
 
 .copyright {
@@ -539,35 +680,47 @@ footer {
     margin: 0;
 }
 
-/* --- Scroll Animations (Unchanged) --- */
-.fade-in-left,
-.fade-in-right {
+/* --- NEW: Scroll Reveal Animations --- */
+.scroll-reveal {
     opacity: 0;
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
 
-.fade-in-left {
-    transform: translateX(-40px);
+/* Base state for sections */
+#about.scroll-reveal,
+#contact.scroll-reveal {
+    transform: translateY(30px);
 }
 
-.fade-in-right {
-    transform: translateX(40px);
+/* Base state for skill cards (pop-in) */
+.skill-card.scroll-reveal {
+    transform: scale(0.8);
 }
 
-.fade-in-left.visible,
-.fade-in-right.visible {
+/* Base state for project cards (3D flip-in) */
+.project-card.scroll-reveal {
+    transform: perspective(1000px) rotateY(-90deg);
+    transform-origin: left;
+}
+
+/* The "Visible" state that JS will add */
+.scroll-reveal.visible {
     opacity: 1;
-    transform: translateX(0);
+    transform: none; /* Resets to default */
 }
+
+/* Staggering the card animations */
+.skills-grid.visible .skill-card,
+.project-grid.visible .project-card {
+    /* This will be handled by JS now for more control */
+}
+/* --- END NEW --- */
 
 
 /* --- Media Queries (Responsiveness) --- */
 @media (max-width: 992px) {
     section {
         padding: 4rem 5%;
-    }
-    .navbar {
-        padding: 0 5%;
     }
     .about-content {
         grid-template-columns: 1fr;
@@ -582,7 +735,7 @@ footer {
 @media (max-width: 768px) {
     h1 { font-size: 2.5rem; }
     .hero-title { font-size: 2.8rem; }
-    .hero-subtitle { font-size: 1.2rem; }
+    .hero-subtitle { font-size: 1.2rem; min-height: 2rem; }
     
     .skills-grid {
         grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -598,9 +751,30 @@ footer {
         width: 40px;
     }
 
+    /* --- MODIFIED: Mobile Navbar --- */
+    header {
+        position: sticky; /* Revert to sticky */
+        padding: 0; /* Remove padding */
+    }
+    .navbar {
+        max-width: 100%; /* Full width */
+        border-radius: 0; /* No rounded corners */
+        padding: 0 5%; /* Standard padding */
+        /* Keep the glass effect */
+        background: rgba(255, 248, 250, 0.8);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        /* --- MODIFIED: Black Border --- */
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Subtle black bottom border */
+    }
+    /* --- END MODIFIED --- */
+
     /* --- Hamburger Menu Logic --- */
     .hamburger {
         display: block;
+        cursor: pointer;
     }
     
     .hamburger.active .bar:nth-child(2) {
@@ -615,16 +789,22 @@ footer {
 
     .nav-menu {
         position: fixed;
-        top: 70px; /* Below navbar */
+        top: 70px;
         left: -100%;
-        background-color: var(--color-bg-body); /* White mobile menu */
+        /* --- NEW: Glass effect for mobile menu --- */
+        background: rgba(255, 248, 250, 0.9);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        
         flex-direction: column;
         width: 100%;
         height: calc(100vh - 70px);
         text-align: center;
         transition: left 0.3s ease-in-out;
         gap: 0;
-        border-top: 1px solid var(--color-border);
+        
+        /* --- MODIFIED: Black Border --- */
+        border-top: 1px solid rgba(0, 0, 0, 0.2); /* Match the navbar's black border */
     }
 
     .nav-menu.active {
@@ -645,7 +825,7 @@ footer {
     }
     .nav-link:hover,
     .nav-link.active {
-        background-color: var(--color-bg-section); /* Light pink hover */
+        background-color: var(--color-secondary-accent);
         color: var(--color-primary);
     }
     
