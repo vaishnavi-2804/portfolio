@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vaishnavi | Budding Engineer </title>
     
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +20,9 @@
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
     <header>
         <nav class="navbar">
             <div class="nav-brand">
@@ -25,7 +33,6 @@
                 <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
                 <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-                <li class="nav-item"><a href="#hobby" class="nav-link">Hobby</a></li>
                 <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -40,7 +47,7 @@
         <section id="home" class="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Hi, I'm Vaishnavi</h1>
-                <p class="hero-subtitle">Budding Engineer &amp; Front-end Web Developer</p>
+                <p class="hero-subtitle"><span id="typed-subtitle"></span></p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
                     <a href="#contact" class="btn btn-secondary">Contact Me</a>
@@ -48,11 +55,11 @@
             </div>
         </section>
 
-        <section id="about" class="fade-in-left">
+        <section id="about" class="scroll-reveal">
             <h2>About Me</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="myphoto1.jpg" alt="Vaishnavi Headshot">
+                    <img src="myphoto1.JPG" alt="Vaishnavi Headshot">
                 </div>
                 <div class="about-text">
                     <p>
@@ -69,26 +76,26 @@
             </div>
         </section>
 
-        <section id="skills" class="fade-in-right">
+        <section id="skills" class="scroll-reveal">
             <h2>My Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-card">
+                <div class="skill-card scroll-reveal">
                     <img src="https://images.icon-icons.com/2699/PNG/512/python_logo_icon_168886.png" alt="Python logo">
                     <p>Python</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card scroll-reveal">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png" alt="C++ logo">
                     <p>C++</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card scroll-reveal">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2QP4wG2DnJ7gi_F4OjFWO6PsrZQ1sjOrX4A&s" alt="HTML5 logo">
                     <p>HTML5</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card scroll-reveal">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA_l4bsHVcipzP-OZcdauxacMXuQjqSOiEPA&s" alt="CSS3 logo">
                     <p>CSS3</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card scroll-reveal">
                     <img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="GitHub logo">
                     <p>GitHub</p>
                 </div>
@@ -96,10 +103,10 @@
             </div>
         </section>
 
-        <section id="projects" class="fade-in-right">
+        <section id="projects" class="scroll-reveal">
             <h2>My Portfolio</h2>
             <div class="project-grid">
-                <div class="project-card">
+                <div class="project-card scroll-reveal">
                     <img src="krishi.png.png" alt="Project 1" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">Krishi Marg</h3>
@@ -110,12 +117,12 @@
                             <span class="tag">CSS</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://9000-firebase-studio-1758184827748.cluster-zumahodzirciuujpqvsniawo3o.cloudworkstations.dev/" target="_blank" rel="noopener noreferrer" title="Live Demo"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https.9000-firebase-studio-1758184827748.cluster-zumahodzirciuujpqvsniawo3o.cloudworkstations.dev/" target="_blank" rel="noopener noreferrer" title="Live Demo"><i class="fas fa-external-link-alt"></i> Live Demo</a>
                             <a href="https://github.com/adityajagtap14/krishi-dost" target="_blank" rel="noopener noreferrer" title="GitHub Repo"><i class="fab fa-github"></i> GitHub</a>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card scroll-reveal">
                     <img src="gyanmarg.png" alt="Project 2" class="project-image">
                     <div class="project-content">
                         <h3 class="project-title">GyanMarg</h3>
@@ -134,10 +141,11 @@
         </section>
 
         
-        <section id="contact" class="fade-in-right">
+        <section id="contact" class="scroll-reveal">
             <h2>Get In Touch</h2>
             <p class="contact-subtitle">I'm currently open to new opportunities. Send me a message!</p>
-            <form id="contact-form" class="contact-form">
+            
+            <form id="contact-form" class="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
@@ -162,8 +170,8 @@
         <p class="copyright">&copy; 2025 Vaishnavi. All rights reserved.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
     <script src="script.js"></script>
 </body>
-
 </html>
-
